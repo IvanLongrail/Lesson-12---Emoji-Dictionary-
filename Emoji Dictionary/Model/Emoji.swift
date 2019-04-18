@@ -25,6 +25,17 @@ class Emoji: Codable {
         self.description = description
         self.usage = usage
     }
+    
+    func clone() -> Emoji {
+        let symbol = self.symbol
+        let name = self.name
+        let description = self.description
+        let usage = self.usage
+        
+        let newEmoji = Emoji.init(symbol: symbol, name: name, description: description, usage: usage)
+        
+        return newEmoji
+    }
 }
 
 // MARK: - Init From Decoded Data

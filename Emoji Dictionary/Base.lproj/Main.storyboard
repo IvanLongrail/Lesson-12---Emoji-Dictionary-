@@ -198,7 +198,7 @@
                     <navigationItem key="navigationItem" title="Add" id="xpd-Ki-PYt">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="XgH-gl-wdS">
                             <connections>
-                                <segue destination="k0X-Ef-5Vh" kind="unwind" unwindAction="unwindWithSegue:" id="D37-A2-zoI"/>
+                                <segue destination="k0X-Ef-5Vh" kind="unwind" identifier="Cancel" unwindAction="unwindWithSegue:" id="D37-A2-zoI"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Dds-rz-bga">
@@ -240,6 +240,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="bbC-7x-zmq"/>
+        <segue reference="Qcy-Hm-qKe"/>
     </inferredMetricsTieBreakers>
 </document>

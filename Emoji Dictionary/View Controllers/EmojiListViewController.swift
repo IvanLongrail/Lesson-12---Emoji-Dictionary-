@@ -133,7 +133,7 @@ extension EmojiListViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard segue.identifier == "EditSegue" else { return }
         let emojiDetailViewController = segue.destination as! EmojiDetailViewController
-        emojiDetailViewController.emoji = emojis[ tableView.indexPathForSelectedRow!.row ]
+        emojiDetailViewController.emoji = emojis[ tableView.indexPathForSelectedRow!.row ].clone()
         emojiDetailViewController.navigationItem.title = "Editing"
     }
 }

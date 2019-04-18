@@ -17,16 +17,12 @@ class EmojiDetailViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     var emoji = Emoji()
-    var keyboardActive = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupKeyboardNotifications()
         updateUI()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
     }
     
     func areFieldsReady() -> Bool {
@@ -81,25 +77,29 @@ extension EmojiDetailViewController: UITextFieldDelegate {
 }
 
 
+// MARK: - Keyboard Notifications
 extension EmojiDetailViewController {
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-
-            guard !keyboardActive else { return }
-
-            self.view.frame.size.height -=  keyboardSize.height
-            keyboardActive = true
-
-        }
+    
+    func setupKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            
-            guard keyboardActive else { return }
-            
-            self.view.frame.size.height += keyboardSize.height
-            keyboardActive = false
-        }
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+//
+//            guard !keyboardActive else { return }
+//
+//            self.view.frame.size.height -=  keyboardSize.height
+//            keyboardActive = true
+//
+//        }
+        let userInfo = notification.userInfo
+        let keyboardFrameSize = (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        scrollView.contentOffset = CGPoint(x: 0, y: keyboardFrameSize.height)
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+       scrollView.contentOffset = CGPoint.zero
     }
 }
