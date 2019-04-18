@@ -96,12 +96,7 @@ extension EmojiDetailViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
             
-            guard keyboardActive else { return }
-
-            let vh = self.view.frame.size.height
-            let vw = self.view.frame.size.width
-            let kh = keyboardSize.height
-            let kw = keyboardSize.width
+            guard keyboardActive else { return }s
             
             self.view.frame.size.height += keyboardSize.height
             keyboardActive = false
